@@ -47,3 +47,6 @@ Implementa o comportamento de chat mas não guarda contexto de uma mensagem para
 
 ### #parte3
 Adiciona o ChatHistory para manter no contexto da conversa do chat
+
+### #parte4
+Adiciona SystemMessage para configurar o GPT para responder com uma pessoa engraçada

@@ -12,6 +12,8 @@ ChatHistory history = [];
 
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
+history.AddSystemMessage("You should answer as a very funny person");
+
 while (true)
 {
     var request = AnsiConsole.Ask<string>("[yellow]User >[/]");
