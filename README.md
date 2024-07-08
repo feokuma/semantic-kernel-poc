@@ -44,3 +44,6 @@ Exemplos de implementação de diversos prompts para refinar a interação com a
 
 ### #parte2
 Implementa o comportamento de chat mas não guarda contexto de uma mensagem para outra. 
+
+### #parte3
+Adiciona o ChatHistory para manter no contexto da conversa do chat
