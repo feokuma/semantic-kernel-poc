@@ -50,3 +50,6 @@ Adiciona o ChatHistory para manter no contexto da conversa do chat
 
 ### #parte4
 Adiciona SystemMessage para configurar o GPT para responder com uma pessoa engraçada
+
+### #parte5
+Cria um plugin dar a capacidade do GPT responder a data e hora
