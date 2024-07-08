@@ -1,4 +1,5 @@
 ﻿using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
 using Spectre.Console;
 
 var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
@@ -7,84 +8,22 @@ var builder = Kernel.CreateBuilder();
 builder.AddOpenAIChatCompletion("gpt-4", apiKey!);
 var kernel = builder.Build();
 
-string request = "A lâmpada da minha demo está acesa?";
-string prompt = $"What is the intent of this request? {request}";
-WriteDivider("Teste básico do prompt com o Semantic Kernel", request);
-WriteResponse($"{await kernel.InvokePromptAsync(prompt)}");
+var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
-
-prompt = @$"What is the intent of this request? {request}
-You can choose between GetLightStatus, TurnOnTheLight, TurnOffTheLight";
-WriteDivider("Melhorando o teste com Prompt Engineering", request);
-WriteResponse($"{await kernel.InvokePromptAsync(prompt)}");
-
-
-prompt = @$"Instructions: What is the intent of this request?
-Choices: GetLightStatus, TurnOnTheLight, TurnOffTheLight
-User Input: {request}
-Intent: ";
-WriteDivider("Adicionando estrutura para o output", request);
-WriteResponse($"{await kernel.InvokePromptAsync(prompt)}");
-
-
-prompt = $$"""
-## Instructions
-Provide the intent of the request using de following format:
-
-```json
+while(true)
 {
-    "intent": {intent}
-}
-```
+    var request = AnsiConsole.Ask<string>("[yellow]User >[/]");
 
-## Choices
-You can choose between the following intents:
+    var result = chatCompletionService.GetStreamingChatMessageContentsAsync(request, kernel: kernel);
 
-```json
-["GetLightStatus", "TurnOnTheLight", "TurnOffTheLight"]
-```
+    string fullMessage = "";
+    AnsiConsole.Markup("[cyan]Assistant > [/]");
 
-## User Input
-The user input is:
+    await foreach (var content in result)
+    {
+        Console.Write(content.Content);
+        fullMessage += content.Content;
+    }
 
-```json
-{
-    "request": "{{request}}"
-}
-```
-
-## Intent";
-""";
-WriteDivider("Prompt com instruções de formato", request);
-WriteResponse($"{await kernel.InvokePromptAsync(prompt)}");
-
-
-prompt = @$"Instructions: What is the intent of this request?
-Choices: GetLightStatus, TurnOnTheLight, TurnOffTheLight
-
-User Input: Qual é o status da lampâda da demo? 
-Intent: GetLightStatus
-
-User Input: Liga a lâmpada da demo.
-Intent: TurnOnTheLight
-
-User Input: Desligue a lâmpada da demo.
-Intent: TurnOffTheLight
-
-User Input: {request}
-Intent: ";
-WriteDivider("Exemplos com few-shot prompting", request);
-WriteResponse($"{await kernel.InvokePromptAsync(prompt)}");
-
-
-static void WriteDivider(string title, string question)
-{
     AnsiConsole.WriteLine();
-    AnsiConsole.Write(new Rule($"[white]{title}[/]").RuleStyle("grey").LeftJustified());
-    AnsiConsole.MarkupLine($"[yellow]{question}[/]");
-}
-
-static void WriteResponse(string text)
-{
-    AnsiConsole.MarkupLine($"[green]{text}[/]");
 }
