@@ -4,7 +4,6 @@ using Spectre.Console;
 
 public class DemoLightPlugin
 {
-    private bool LightStatus = false;
     private DemoLightService demoLightService;
 
     public DemoLightPlugin()
