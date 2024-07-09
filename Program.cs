@@ -8,6 +8,7 @@ var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
 var builder = Kernel.CreateBuilder();
 builder.AddOpenAIChatCompletion("gpt-4", apiKey!);
 builder.Plugins.AddFromType<DatetimePlugin>();
+builder.Plugins.AddFromType<DemoLightPlugin>();
 var kernel = builder.Build();
 
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
@@ -18,7 +19,7 @@ var executionSettings = new OpenAIPromptExecutionSettings
 };
 
 ChatHistory history = [] ;
-history.AddSystemMessage("You should answer as a 80's TV series robot");
+history.AddSystemMessage("You should answer as a robot");
 
 while (true)
 {
