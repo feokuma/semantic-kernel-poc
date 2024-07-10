@@ -4,6 +4,8 @@ Aplicação para testar as funcionalidades do SDK da Microsoft para IA. Para cri
 - [Johnny Hooyberghs - Building your own AI Agent using Semantic Kernel](https://www.youtube.com/live/hG8GTOWi0Q0?si=JF-Gh24f3qlXmVdR)
 - [Microsoft Semantic Kernel Playlist](https://youtube.com/playlist?list=PL-PgMmMmma8AJdJyjmywUGDR-IB7BI6Ks&si=6QG664vwOpegW78_)
 
+Existe uma integração com outra aplicação para acionamento de uma lâmpada conectada a uma Raspberry Pi, que pode ser encontrada no seguinte repositório https://github.com/feokuma/gpiowebapi
+
 ## Tecnologias
 - [.NET 9](https://dotnet.microsoft.com/pt-br/download/dotnet/9.0)
 - [Semantic Kernel](https://github.com/microsoft/semantic-kernel)
@@ -55,4 +57,4 @@ Adiciona SystemMessage para configurar o GPT para responder com uma pessoa engra
 Cria um plugin dar a capacidade do GPT responder a data e hora 
 
 ### #parte6
-Adiciona integração com webapi implementado em uma raspberry pi que controla uma lâmpada
+Adiciona integração com webapi implementado em uma raspberry pi que controla uma lâmpada. Este projeto pode ser entrada [neste repositório](https://github.com/feokuma/gpiowebapi).
